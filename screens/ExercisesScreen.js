@@ -2,6 +2,7 @@ import React from "react";
 import { View, ScrollView, StyleSheet, StatusBar } from "react-native";
 
 import { Pages } from "react-native-pages";
+import { inject, observer } from "mobx-react";
 
 import Colors from "../constants/Colors";
 
@@ -12,8 +13,11 @@ import Button from "components/Button";
 import ExerciseInput from "components/ExerciseInput";
 
 import max from "utils/max";
+import getMaxForExercise from "utils/getMaxForExercise";
 import { get } from "utils/store";
 
+@inject("exercises")
+@observer
 export default class ExercisesScreen extends React.Component {
   static navigationOptions = {
     title: "Exercises Screen",
@@ -41,27 +45,21 @@ export default class ExercisesScreen extends React.Component {
       />
     );
   }
+
+  componentWillMount() {
+    this.props.exercises.getAll();
+  }
+  componentWillUnmount() {
+    this.props.exercises.getAllOff();
+  }
   componentDidMount() {
     get("exercises").then(exercises => {
       this.setState({ exercises, loaded: true });
     });
   }
 
-  _getExerciseMax(exercise) {
-    const { reps } = exercise;
-    const last = reps[reps.length - 1];
-
-    if (reps.length) {
-      return max({
-        weight: last.weight,
-        reps: last.reps
-      });
-    } else {
-      return false;
-    }
-  }
   render() {
-    const { exercises = [] } = this.state;
+    const { exercises } = this.props.exercises;
 
     return !this.state.loaded ? null : (
       <View style={styles.container}>
@@ -72,12 +70,12 @@ export default class ExercisesScreen extends React.Component {
                 key={index}
                 onPress={() =>
                   this.props.navigation.push("SingleExercise", {
-                    exercise,
-                    max: this._getExerciseMax(exercise)
+                    id: exercise.id,
+                    max: getMaxForExercise(exercise)
                   })
                 }
                 name={exercise.name}
-                max={this._getExerciseMax(exercise)}
+                max={getMaxForExercise(exercise)}
               />
             </View>
           ))}
@@ -93,6 +91,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
+    paddingBottom: 20,
     backgroundColor: "white"
   },
   swipeCard: {

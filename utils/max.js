@@ -1,16 +1,9 @@
-import oneRepMax from 'one-rep-max';
+import oneRepMax from "one-rep-max";
 
-import { get } from 'utils/store';
+import { get } from "utils/store";
 
-export default ({weight = 100, reps = 10}) => {
-
-  get('settings').then(res => {
-    console.log(res);
-  })
-
-  console.log(weight ,reps);
-  
-  const max = oneRepMax.epley({weight: weight > 0 ? weight : 1,reps});
+export default ({ weight = false, reps = 10 }) => {
+  const max = oneRepMax.epley({ weight: weight > 0 ? weight : 1, reps });
   const exercise = {
     max: Math.floor(max),
     others: [
@@ -27,4 +20,4 @@ export default ({weight = 100, reps = 10}) => {
   };
 
   return exercise;
-}
+};
