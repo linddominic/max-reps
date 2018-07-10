@@ -1,22 +1,29 @@
-import React from 'react';
-import { 
-  View,
-  ScrollView,
-  StyleSheet
-} from 'react-native';
+import React from "react";
+import { View, Dimensions, StyleSheet } from "react-native";
 
-import {p} from 'components/Text';
-import Colors from '../constants/Colors';
+import { Constants } from "expo";
+import { inject, observer } from "mobx-react";
 
+import { P, H1, H2, H3 } from "components/ui/Text";
+import Colors from "../constants/Colors";
+
+@inject("workout")
+@observer
 export default class Screen extends React.Component {
   static navigationOptions = {
-    title: 'Screen',
+    title: "Screen",
+    header: null
+  };
+
+  state = {
+    index: 0
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <p>Screen</p>
+        <H3>Namn på Pass</H3>
+        <P>Kör fan</P>
       </View>
     );
   }
@@ -25,7 +32,7 @@ export default class Screen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
-  },
+    padding: 15,
+    backgroundColor: "#fff"
+  }
 });

@@ -5,14 +5,13 @@ import {
   createStackNavigator,
   createBottomTabNavigator
 } from "react-navigation";
-
-import TabBarIcon from "../components/TabBarIcon";
-import HomeScreen from "../screens/HomeScreen";
-import LinksScreen from "../screens/LinksScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import ExercisesScreen from "../screens/ExercisesScreen";
 import SingleExerciseScreen from "../screens/SingleExerciseScreen";
 import RegisterMaxScreen from "../screens/RegisterMaxScreen";
+import WorkoutScreen from "../screens/WorkoutScreen";
+import KitchenScreen from "../screens/KitchenScreen";
+import WeeksScreen from "../screens/WeeksScreen";
 
 const HomeStack = createStackNavigator(
   {
@@ -20,13 +19,16 @@ const HomeStack = createStackNavigator(
       {
         Exercises: ExercisesScreen,
         Settings: SettingsScreen,
-        SingleExercise: SingleExerciseScreen
+        Weeks: WeeksScreen,
+        SingleExercise: SingleExerciseScreen,
+        Kitchen: KitchenScreen
       },
       {
-        initialRouteName: "Exercises"
+        initialRouteName: "Weeks"
       }
     ),
-    Register: RegisterMaxScreen
+    Register: RegisterMaxScreen,
+    Workout: WorkoutScreen
   },
   {
     initialRouteName: "Main",
@@ -34,53 +36,4 @@ const HomeStack = createStackNavigator(
     headerMode: "none"
   }
 );
-
-// HomeStack.navigationOptions = {
-//   tabBarLabel: 'Home',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon
-//       focused={focused}
-//       name={
-//         Platform.OS === 'ios'
-//           ? `ios-information-circle${focused ? '' : '-outline'}`
-//           : 'md-information-circle'
-//       }
-//     />
-//   ),
-// };
-
-// const LinksStack = createStackNavigator({
-//   Links: LinksScreen,
-// });
-
-// LinksStack.navigationOptions = {
-//   tabBarLabel: 'Links',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon
-//       focused={focused}
-//       name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
-//     />
-//   ),
-// };
-
-// const SettingsStack = createStackNavigator({
-//   Settings: SettingsScreen,
-// });
-
-// SettingsStack.navigationOptions = {
-//   tabBarLabel: 'Settings',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon
-//       focused={focused}
-//       name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
-//     />
-//   ),
-// };
-
-// export default createBottomTabNavigator({
-//   HomeStack,
-//   LinksStack,
-//   SettingsStack,
-// });
-
 export default HomeStack;

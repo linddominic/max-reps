@@ -4,11 +4,7 @@ import { View, ScrollView, StyleSheet, StatusBar } from "react-native";
 import { inject, observer } from "mobx-react";
 import Colors from "../constants/Colors";
 
-import { P } from "components/Text";
-import ExerciseCard from "components/ExerciseCard";
-import ExerciseInput from "components/ExerciseInput";
-
-import { registerLift } from "utils/store";
+import ExerciseInput from "components/exercise/ExerciseInput";
 
 @inject("exercise")
 @observer

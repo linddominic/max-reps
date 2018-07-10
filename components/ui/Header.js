@@ -15,7 +15,7 @@ import {
   RefreshControl
 } from "react-native";
 
-import { P as Text, H1, H3 as H4 } from "components/Text";
+import { P as Text, H1, H3 as H4 } from "./Text";
 
 const DEFAULT_OBJ = {};
 
@@ -165,6 +165,7 @@ class ParallaxNavBar extends Component {
               false
             )
           }
+          contentContainerStyle={{ paddingBottom: 50 }}
           style={styles.content}
           scrollEventThrottle={1}
           onScroll={Animated.event(

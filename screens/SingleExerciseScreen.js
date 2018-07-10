@@ -1,18 +1,13 @@
 import React from "react";
 import { View, ScrollView, StyleSheet, StatusBar } from "react-native";
 import { inject, observer } from "mobx-react";
-import { EvilIcons, Ionicons, Feather } from "@expo/vector-icons";
 
-import { H1, H2, H3, P } from "components/Text";
-import ListItem from "components/ListItem";
-import ActionSheet from "components/ActionSheet";
-import Button from "components/Button";
-import Header from "components/Header";
-import MaxListItem from "components/MaxListItem";
-import Colors from "../constants/Colors";
+import { H1, H2, H3, P } from "components/ui/Text";
+import Button from "components/ui/Button";
+import Header from "components/ui/Header";
+import MaxListItem from "components/exercise/MaxListItem";
 
 import getMaxForExercise from "utils/getMaxForExercise";
-import max from "utils/max";
 import fto from "utils/531";
 
 @inject("exercise")

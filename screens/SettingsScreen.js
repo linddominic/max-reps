@@ -1,21 +1,27 @@
-import React from 'react';
-import { 
-  View,
-  ScrollView,
-  StyleSheet
-} from 'react-native';
+import React from "react";
+import { View, ScrollView, StyleSheet } from "react-native";
 
-import { EvilIcons, Ionicons, Feather } from '@expo/vector-icons';
+import { EvilIcons, Ionicons, Feather } from "@expo/vector-icons";
 
-import {P} from 'components/Text';
-import ListItem from 'components/ListItem';
-import ActionSheet from 'components/ActionSheet';
-import Header from 'components/Header';
-import Colors from '../constants/Colors';
+import { P } from "components/ui/Text";
+import Header from "components/ui/Header";
+import ListItem from "components/ui/ListItem";
+import ActionSheet from "components/settings/ActionSheet";
+import Colors from "../constants/Colors";
+
+const VALUES = {
+  epley: "Epley",
+  brzycki: "Brzycki",
+  lander: "Lander",
+  lombardi: "Lombardi",
+  mayhew: "Mayhew et al.",
+  oconner: "O`Conner et al.",
+  wathan: "Wathan"
+};
 
 export default class Screen extends React.Component {
   static navigationOptions = {
-    title: 'Screen',
+    title: "Screen",
     header: null
   };
 
@@ -23,9 +29,9 @@ export default class Screen extends React.Component {
     super(props);
 
     this.state = {
-      sheet: true,
-      formula: 'epley'
-    }
+      sheet: false,
+      formula: "epley"
+    };
   }
 
   render() {
@@ -35,24 +41,28 @@ export default class Screen extends React.Component {
         title="Settings"
         inverted
         bg="black"
-        onLeft={() => console.log('black')}
+        onLeft={() => console.log("black")}
         leftIcon="arrow-left"
         actionSheet={() => (
           <ActionSheet
             show={this.state.sheet}
-            dismiss={() => this.setState({sheet: false})}
+            dismiss={() => this.setState({ sheet: false })}
             onChange={this.onChange}
             value={this.state.formula}
-            onSelect={formula => this.setState({formula})}
-          >
-          </ActionSheet>
+            values={VALUES}
+            onSelect={formula => this.setState({ formula })}
+          />
         )}
       >
-        <View style={{padding: 15}}>
-          <P style={{marginBottom: 10}} color="white">Select your method of 1RM calculation:</P>
+        <View style={{ padding: 15 }}>
+          <P margin color="white">
+            Select your method of 1RM calculation:
+          </P>
           <ListItem
-            onPress={() => this.setState({sheet: true})}
-            label="Bryzki"
+            onPress={() => this.setState({ sheet: true })}
+            label={VALUES[this.state.formula]}
+            bg="rgba(255,255,255,.1)"
+            icon="ios-more"
           />
         </View>
       </Header>
@@ -64,6 +74,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 15,
-    backgroundColor: 'black',
-  },
+    backgroundColor: "black"
+  }
 });

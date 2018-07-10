@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   StyleSheet,
@@ -7,29 +7,18 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   ScrollView
-} from 'react-native';
+} from "react-native";
 
-import { Feather } from '@expo/vector-icons';
-import {P} from 'components/Text';
-import Colors from '../constants/Colors';
+import { Feather } from "@expo/vector-icons";
+import { P } from "components/ui/Text";
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
-const VALUES = {
-  epley: 'Epley',
-  brzycki: 'Brzycki',
-  lander: 'Lander',
-  lombardi: 'Lombardi',
-  mayhew: 'Mayhew et al.',
-  oconner: 'O`Conner et al.',
-  wathan: 'Wathan'
-};
-
-const ActionSheetListItem = (props) => (
+const ActionSheetListItem = props => (
   <TouchableOpacity onPress={() => props.onPress(props.label)}>
     <View style={styles.listItem}>
       <P>{props.label}</P>
-      <Feather name="check" size={20} color="black" />
+      {props.selected && <Feather name="check" size={20} color="black" />}
     </View>
   </TouchableOpacity>
 );
@@ -39,12 +28,12 @@ export default class Component extends React.PureComponent {
     super(props);
 
     this.state = {
-      contentX : new Animated.Value(0)
+      contentX: new Animated.Value(0)
     };
   }
 
-  componentDidUpdate(prevProps){
-    if(prevProps.show !== this.props.show){
+  componentDidUpdate(prevProps) {
+    if (prevProps.show !== this.props.show) {
       Animated.spring(this.state.contentX, {
         toValue: this.props.show ? 1 : 0,
         useNativeDriver: true,
@@ -52,7 +41,7 @@ export default class Component extends React.PureComponent {
       }).start();
     }
   }
-  componentDidMount(){
+  componentDidMount() {
     Animated.spring(this.state.contentX, {
       toValue: this.props.show ? 1 : 0,
       useNativeDriver: true,
@@ -61,12 +50,12 @@ export default class Component extends React.PureComponent {
   }
   render() {
     const wrapperY = this.state.contentX.interpolate({
-      inputRange: [0,0.2, 1],
+      inputRange: [0, 0.2, 1],
       outputRange: [height, 0, 0]
     });
     const contentY = this.state.contentX.interpolate({
-      inputRange: [0,0.1,1],
-      outputRange: [height/3, height/3, 0]
+      inputRange: [0, 0.1, 1],
+      outputRange: [height / 3, height / 3, 0]
     });
 
     const opacityDimmer = this.state.contentX.interpolate({
@@ -75,39 +64,36 @@ export default class Component extends React.PureComponent {
     });
 
     return (
-      <Animated.View style={[
-        styles.component,
-        { transform: [{ translateY: wrapperY }] }
-      ]}>
-
+      <Animated.View
+        style={[styles.component, { transform: [{ translateY: wrapperY }] }]}
+      >
         <TouchableWithoutFeedback onPress={() => this.props.dismiss()}>
-          <Animated.View style={[
-            styles.dimmer,
-            StyleSheet.absoluteFill,
-            { opacity: opacityDimmer }
-          ]}>
-          </Animated.View>
+          <Animated.View
+            style={[
+              styles.dimmer,
+              StyleSheet.absoluteFill,
+              { opacity: opacityDimmer }
+            ]}
+          />
         </TouchableWithoutFeedback>
 
-        <Animated.View style={[
-          styles.content,
-          { transform: [{ translateY: contentY }] }
-        ]}>
-          <ScrollView>
-            {Object.keys(VALUES).map(key => (
+        <Animated.View
+          style={[styles.content, { transform: [{ translateY: contentY }] }]}
+        >
+          <ScrollView contentContainerStyle={{ paddingBottom: 30 }}>
+            {Object.keys(this.props.values).map(key => (
               <ActionSheetListItem
                 key={key}
-                label={VALUES[key]}
+                label={this.props.values[key]}
                 selected={this.props.value == key}
                 onPress={item => {
-                  this.props.onSelect(key)
+                  this.props.onSelect(key);
                   this.props.dismiss();
                 }}
               />
             ))}
           </ScrollView>
         </Animated.View>
-
       </Animated.View>
     );
   }
@@ -115,30 +101,30 @@ export default class Component extends React.PureComponent {
 
 const styles = StyleSheet.create({
   component: {
-    position: 'absolute',
-    height: '100%',
+    position: "absolute",
+    height: "100%",
     width,
-    zIndex: 100,
+    zIndex: 100
   },
   active: {
-    zIndex: 100,
+    zIndex: 100
   },
   content: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
-    backgroundColor: 'white',
-    width: '100%',
-    maxHeight: height/3
+    backgroundColor: "white",
+    width: "100%",
+    maxHeight: height / 3
   },
   dimmer: {
-    backgroundColor: 'rgba(0,0,0,.7)'
+    backgroundColor: "rgba(0,0,0,.7)"
   },
   listItem: {
     padding: 15,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   listItemIcon: {
-    color: 'black'
+    color: "black"
   }
-})
+});

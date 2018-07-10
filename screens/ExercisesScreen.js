@@ -6,15 +6,9 @@ import { inject, observer } from "mobx-react";
 
 import Colors from "../constants/Colors";
 
-import { P } from "components/Text";
-import ExerciseCard from "components/ExerciseCard";
-import MyIndicator from "components/MyIndicator";
-import Button from "components/Button";
-import ExerciseInput from "components/ExerciseInput";
-
-import max from "utils/max";
+import ExerciseCard from "components/exercises/ExerciseCard";
+import MyIndicator from "components/exercises/MyIndicator";
 import getMaxForExercise from "utils/getMaxForExercise";
-import { get } from "utils/store";
 
 @inject("exercises")
 @observer
@@ -52,11 +46,7 @@ export default class ExercisesScreen extends React.Component {
   componentWillUnmount() {
     this.props.exercises.getAllOff();
   }
-  componentDidMount() {
-    get("exercises").then(exercises => {
-      this.setState({ exercises, loaded: true });
-    });
-  }
+  componentDidMount() {}
 
   render() {
     const { exercises } = this.props.exercises;

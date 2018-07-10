@@ -1,16 +1,11 @@
-import React from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity
-} from 'react-native';
+import React from "react";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 
-import {P} from 'components/Text';
-import Colors from '../constants/Colors';
+import { P } from "components/ui/Text";
 
 export default class Steps extends React.PureComponent {
   render() {
-    const { steps, current } = this.props;
+    const { steps, current } = this.props;
     console.log(steps);
 
     console.log(current);
@@ -22,13 +17,11 @@ export default class Steps extends React.PureComponent {
             style={styles.step}
             onPress={() => this.props.onPress(index)}
           >
-            <P 
+            <P
               color="white"
-              style={[
-                styles.stepText,
-                index == current ? styles.active : {}
-              ]}>
-                {step.toUpperCase()}
+              style={[styles.stepText, index == current ? styles.active : {}]}
+            >
+              {step.toUpperCase()}
             </P>
           </TouchableOpacity>
         ))}
@@ -39,18 +32,18 @@ export default class Steps extends React.PureComponent {
 
 const styles = StyleSheet.create({
   component: {
-    flexDirection: 'row',
+    flexDirection: "row"
   },
   step: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     paddingVertical: 15,
     paddingRight: 20
   },
   stepText: {
-    fontFamily: 'colfax-medium',
-    opacity: .7
+    fontFamily: "colfax-medium",
+    opacity: 0.7
   },
   active: {
     opacity: 1
   }
-})
+});
